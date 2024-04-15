@@ -26,9 +26,9 @@ function App() {
     defaultValues: {
       name: "nese",
       surname: "Zeynalli",
+      password: 1234,
     },
   });
-  console.log(errors);
   const onsubmit = (values) => {
     console.log(values);
   };
@@ -52,8 +52,21 @@ function App() {
       </>
     );
   };
-  const passwordInput = () => {
-    return <></>;
+  const passwordInput = ({ field: { value, onChange } }) => {
+    return (
+      <>
+        <label htmlFor="password">Password</label>
+        <Input
+          name="password"
+          value={value}
+          onChange={onChange}
+          className={classNames({
+            "is-invalid": errors?.password,
+          })}
+        ></Input>
+        <FormText color="danger">{errors?.password?.message}</FormText>
+      </>
+    );
   };
   const surnameInput = ({ field: { value, onChange } }) => {
     return (
@@ -78,7 +91,7 @@ function App() {
   };
   return (
     <>
-      <div className="container">
+      <div className="container mt-5">
         <Card>
           <CardHeader>
             <CardTitle>Form</CardTitle>
@@ -100,6 +113,7 @@ function App() {
                 name="name"
                 control={control}
               />
+
               <Controller
                 rules={{
                   required: {
@@ -108,14 +122,16 @@ function App() {
                   },
                   minLength: {
                     value: 3,
-                    minLength: VALIDATION_MESSAGES.minLength,
+                    message: VALIDATION_MESSAGES.minLength,
                   },
                 }}
-                render={passwordInput}
+                render={surnameInput}
                 name="surname"
                 control={control}
               />
               <Controller
+                name="password"
+                render={passwordInput}
                 rules={{
                   required: {
                     value: true,
@@ -123,23 +139,23 @@ function App() {
                   },
                   minLength: {
                     value: 7,
-                    minLength: VALIDATION_MESSAGES.minLength2,
+                    message: VALIDATION_MESSAGES.minLength2,
                   },
                 }}
-                render={surnameInput}
-                name="surname"
                 control={control}
               />
-              <Button className="mt-4" color="success">
+
+              <textarea
+                name="textarea"
+                id="textarea"
+                cols="10"
+                rows="3"
+                onChange={onchange}
+              ></textarea>
+              <div className="TRASHDIV"></div>
+              <Button className="mt-2" color="success">
                 submit
               </Button>
-              <textarea
-                className="mt-3"
-                name=""
-                id="textera"
-                cols="30"
-                rows="10"
-              ></textarea>
             </form>
           </CardBody>
         </Card>
