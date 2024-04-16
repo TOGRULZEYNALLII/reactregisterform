@@ -1,5 +1,6 @@
 import "./App.css";
 import classNames from "classnames";
+import { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import {
   Button,
@@ -21,6 +22,8 @@ function App() {
     handleSubmit,
     control,
     getValues,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -89,6 +92,13 @@ function App() {
       </>
     );
   };
+  const name = watch("name");
+  useEffect(() => {
+    if (name == "togrul") {
+      setValue("name", "elnur");
+    }
+  }, [name]);
+  console.log(name);
   return (
     <>
       <div className="container mt-5">
